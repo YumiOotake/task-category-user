@@ -31,24 +31,7 @@
 
             <div class="task-detail__item">
                 <span class="task-detail__title">優先度</span>
-                <div class="task-detail__text">
-                    <span class="task-detail__text-span">高
-                        @if ($task->priority === 3)
-                            bg-red-100 text-red-800
-                        @elseif($task->priority === 2)
-                            bg-yellow-100 text-yellow-800
-                        @else
-                            bg-green-100 text-green-800
-                            @endif">
-                            @if ($task->priority === 3)
-                                高
-                            @elseif($task->priority === 2)
-                                中
-                            @else
-                                低
-                            @endif あとで実装する
-                    </span>
-                </div>
+                <p class="task-detail__text">{{ $task->priority_label }}</p>
             </div>
 
             <div class="task-detail__item">

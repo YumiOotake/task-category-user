@@ -35,7 +35,7 @@ class Task extends Model
 
     public function getPriorityLabelAttribute(): string
     {
-        //bladeで使える。表示ように書く
+        //bladeで使える。表示ように書くshow,index
         return match ($this->priority) {
             1 => '低',
             2 => '中',

@@ -33,7 +33,7 @@
                         <tr class="task-table__row">
                             <td class="task-table__item">{{ $task->title }}</td>
                             <td class="task-table__item">{{ $task->category->name }}</td>
-                            <td class="task-table__item">{{ $task->priority }}</td>
+                            <td class="task-table__item">{{ $task->priority_label }}</td>
 
                             <td class="task-table__item">
                                 <div class="task-table__detail">
