@@ -7,6 +7,7 @@ use App\Models\Category;
 use Illuminate\Http\Request;
 use App\Models\Task;
 
+
 class TaskController extends Controller
 {
     /**
@@ -16,7 +17,12 @@ class TaskController extends Controller
      */
     public function index()
     {
-        $tasks = Task::with('category')->get();
+        // $tasks = Task::with('category')->get();
+        $tasks = auth()->user()->tasks()
+            ->with('category')
+            ->orderBy('priority', 'desc')
+            ->orderBy('created_at', 'desc')
+            ->get();
 
         return view('tasks.index', compact('tasks'));
     }
@@ -28,7 +34,8 @@ class TaskController extends Controller
      */
     public function create()
     {
-        $categories = Category::all();
+        // $categories = Category::all();
+        $categories = Category::orderBy('name')->get();
         return view('tasks.create', compact('categories'));
     }
 
@@ -40,7 +47,11 @@ class TaskController extends Controller
      */
     public function store(TaskRequest $request)
     {
-        Task::create($request->validated());
+        $validated = $request->validated();
+        $validated['user_id'] = auth()->id();
+
+        // Task::create($request->validated());
+        Task::create($validated);
         return redirect()->route('tasks.index')->with('success', 'タスクを追加しました');
     }
 
@@ -52,6 +63,7 @@ class TaskController extends Controller
      */
     public function show(Task $task)
     {
+        $this->authorize('view', $task);
         $task->load('category');
 
         return view('tasks.show', compact('task'));
@@ -65,7 +77,9 @@ class TaskController extends Controller
      */
     public function edit(Task $task)
     {
-        $categories = Category::all();
+        $this->authorize('update', $task);
+        // $categories = Category::all();
+        $categories = Category::orderBy('name')->get();
         return view('tasks.edit', compact('task', 'categories'));
     }
 
@@ -76,8 +90,10 @@ class TaskController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Task $task, TaskRequest $request)
+    public function update(TaskRequest $request, Task $task)
     {
+        $this->authorize('update', $task);
+
         $task->update($request->validated());
         return redirect()->route('tasks.index')->with('success', 'タスクを更新しました');
     }
@@ -90,6 +106,8 @@ class TaskController extends Controller
      */
     public function destroy(Task $task)
     {
+        $this->authorize('delete', $task);
+
         $task->delete();
 
         return redirect()->route('tasks.index')->with('success', 'タスクを削除しました');

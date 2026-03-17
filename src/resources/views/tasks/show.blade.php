@@ -33,14 +33,20 @@
                 <span class="task-detail__title">優先度</span>
                 <div class="task-detail__text">
                     <span class="task-detail__text-span">高
-                        {{-- @if ($task->priority === 3) bg-red-100 text-red-800
-                        @elseif($task->priority === 2) bg-yellow-100 text-yellow-800
-                        @else bg-green-100 text-green-800
-                        @endif">
-                        @if ($task->priority === 3) 高
-                        @elseif($task->priority === 2) 中
-                        @else 低
-                        @endif あとで実装する --}}
+                        @if ($task->priority === 3)
+                            bg-red-100 text-red-800
+                        @elseif($task->priority === 2)
+                            bg-yellow-100 text-yellow-800
+                        @else
+                            bg-green-100 text-green-800
+                            @endif">
+                            @if ($task->priority === 3)
+                                高
+                            @elseif($task->priority === 2)
+                                中
+                            @else
+                                低
+                            @endif あとで実装する
                     </span>
                 </div>
             </div>
@@ -57,16 +63,21 @@
         </div>
 
         <div class="task-detail__button">
-            <a href="{{ route('tasks.edit', $task) }}" class="task-detail__button--edit">
-                編集
-            </a>
-            <form action="{{ route('tasks.destroy', $task) }}" method="POST" onsubmit="return confirm('本当に削除しますか？');">
-                @csrf
-                @method('DELETE')
-                <button type="submit" class="task-detail__button--delete">
-                    削除
-                </button>
-            </form>
+            @can('update', $task)
+                <a href="{{ route('tasks.edit', $task) }}" class="task-detail__button--edit">
+                    編集
+                </a>
+            @endcan
+            @can('delete', $task)
+                <form action="{{ route('tasks.destroy', $task) }}" method="POST" onsubmit="return confirm('本当に削除しますか？');">
+                    @csrf
+                    @method('DELETE')
+                    <button type="submit" class="task-detail__button--delete">
+                        削除
+                    </button>
+                </form>
+            @endcan
+
         </div>
     </div>
 @endsection
