@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\TaskController;
 use Illuminate\Support\Facades\Route;
 
 
@@ -14,8 +16,13 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+//「 / にアクセスしたら誰でもログインページに飛ばす」ログイン済みでも / にアクセスしたらloginページに。
 Route::get('/', function () {
-    return view('welcome');
+    return redirect()->route('login');
 });
 
-// Route::get('/tasks', [])
+Route::middleware('auth')->group(function () {
+
+    Route::resource('categories', CategoryController::class);
+    Route::resource('tasks', TaskController::class);
+});

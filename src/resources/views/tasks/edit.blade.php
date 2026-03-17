@@ -31,11 +31,12 @@
             @method('PATCH')
             <div class="edit-form__content">
                 <div class="edit-form__item">
-                    <input type="text" name="title" value="{{ old('title', $task->title) }}">
+                    <label for="title" class="edit-form__item-label">タイトル</label>
+                    <input type="text" name="title" id="title" value="{{ old('title', $task->title) }}">
                 </div>
                 <div class="edit-form__item">
-                    <select name="category_id">
-                        <option value="">category</option>
+                    <label for="category" class="edit-form__item-label">カテゴリー</label>
+                    <select name="category_id" id="category">
                         @foreach ($categories as $category)
                             <option value="{{ $category->id }}"
                                 {{ old('category_id', $task->category_id) == $category->id ? 'selected' : '' }}>
@@ -45,14 +46,16 @@
                     </select>
                 </div>
                 <div class="edit-form__item">
-                    <select name="priority_id">
-                        <option value="">priority</option>
-                        @foreach ($priorities as $priority)
-                            <option
-                                value="{{ $priority->id }}"{{ old('priority_id', $task->priority_id) == $priority->id ? 'selected' : '' }}>
-                                {{ $priority->name }}</option>
-                        @endforeach
+                    <label for="priority" class="edit-form__item-label">優先度</label>
+                    <select name="priority" id="priority">
+                        <option value="1" {{ old('priority', $task->priority) == 1 ? 'selected' : '' }}>低</option>
+                        <option value="2" {{ old('priority', $task->priority) == 2 ? 'selected' : '' }}>中</option>
+                        <option value="3" {{ old('priority', $task->priority) == 3 ? 'selected' : '' }}>高</option>
                     </select>
+                </div>
+                <div class="edit-form__item">
+                    <label for="description" class="edit-form__item-label">説明</label>
+                    <textarea name="description" id="description" rows="5">{{ old('description', $task->description) }}</textarea>
                 </div>
             </div>
             <div class="edit-form__button">

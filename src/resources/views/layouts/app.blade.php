@@ -39,6 +39,16 @@
         </div>
     </header>
     <main>
+        @if (session('success'))
+            <div class="category__alert--success">
+                {{ session('success') }}
+            </div>
+        @endif
+        @if (session('error'))
+            <div class="category__alert--danger">
+                {{ session('error') }}
+            </div>
+        @endif
         @yield('content')
     </main>
 </body>
