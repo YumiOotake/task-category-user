@@ -21,12 +21,30 @@ class TaskFactory extends Factory
         return [
             //User::factory() を使うとTaskを作るときに自動でUserも作る。
             //'user_id' => User::factory(),
-            'user_id' => User::all()->random()->id,
+            // 'user_id' => User::all()->random()->id,
             // または既存レコードから取るなら
-            'category_id' => Category::all()->random()->id,
+            // 'category_id' => Category::all()->random()->id,
+            // 'title' => $this->faker->sentence(),
+            // 'description' => $this->faker->paragraph(),
+            // 'priority' => $this->faker->randomElement([1, 2, 3]),
             'title' => $this->faker->sentence(),
             'description' => $this->faker->paragraph(),
             'priority' => $this->faker->randomElement([1, 2, 3]),
+            'user_id' => User::factory(),
+            'category_id' => Category::factory(),
         ];
+    }
+
+    public function highPriority(): static
+    {
+        return $this->state(fn (array $attributes) => [
+            'priority' => 3,
+        ]);
+    }
+    public function lowPriority(): static
+    {
+        return $this->state(fn(array $attributes) => [
+            'priority' => 1,
+        ]);
     }
 }

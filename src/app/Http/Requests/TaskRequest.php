@@ -27,7 +27,8 @@ class TaskRequest extends FormRequest
             'title' => ['required', 'string', 'max:255'],
             'category_id' => ['required'],
             'description' => ['nullable', 'string', 'max:1000'],
-            'priority' => ['required', 'digits_between:1,3'],
+            'priority' => ['required', 'integer', 'in:1,2,3'],
+            // 'priority' => ['required', 'digits_between:1,3'],
             //仕様書に「1000文字以内」の記載がなくても、TEXT型は65,535バイトまで入るので、制限なしだと悪意あるユーザーが極端に長い文字列を送れてしまいます。また nullable を明示しないと空送信時にエラーになります。
         ];
     }
