@@ -41,4 +41,12 @@ class UnauthenticatedRedirectTest extends TestCase
 
         $response->assertRedirect('login');
     }
+
+    /** @test */
+    public function 未ログインユーザーはソートページにアクセスできない()
+    {
+        $response = $this->get(route('tasks.sort',));
+
+        $response->assertRedirect('login');
+    }
 }

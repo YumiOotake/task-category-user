@@ -1,0 +1,199 @@
+.task__content {
+    max-width: 1000px;
+    margin: 16px auto 0;
+
+}
+.search-form__content {
+    display: flex;
+    justify-content: right;
+    align-items: center;
+    gap: 16px;
+}
+.search-form__item,
+.search-form__button {
+    height: 40px;
+}
+.search-form__item-input {
+    height: 100%;
+    font-size: 16px;
+    padding: 8px;
+}
+.search-form__button--submit {
+    font-size: 16px;
+    padding: 8px;
+    height: 100%;
+    color: #fff;
+    background-color: #353866;
+    border-radius: 8px;
+    cursor: pointer;
+}
+.search-form__button--submit:hover {
+    opacity: .8;
+}
+.login-name {
+    font-size: 16px;
+}
+
+.task__section {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.section__button-add {
+    color: #fff;
+    border: none;
+    text-decoration: none;
+    background-color: #353866;
+    padding: 16px 24px;
+    border-radius: 8px;
+}
+
+.section__button-add:hover {
+    opacity: .8;
+}
+
+.task-table {
+    width: 100%;
+    text-align: center;
+    border: 1px solid rgb(144, 144, 144);
+    border-radius: 8px;
+    overflow: hidden;
+    /* これがないとradiusが角に効かない */
+}
+
+.task-table__item:first-child {
+    text-align: left;
+}
+
+.task-table__inner {
+    width: 100%;
+
+    border-collapse: collapse;
+}
+
+.task-table__row {
+    border-bottom: 1px solid rgb(144, 144, 144);
+}
+
+.task-table__header {
+    font-size: 16px;
+    color: gray;
+}
+
+.task-table__item:first-child {
+    width: 40%;
+}
+
+.task-table__header {
+    padding: 16px;
+}
+
+.task-table__item {
+    padding: 24px;
+}
+
+.task-table__item:nth-child(2),
+.task-table__item:nth-child(3) {
+    width: 20%;
+}
+/* 優先度バッジ共通 */
+.priority-badge {
+    display: inline-block;
+    padding: 3px 10px;
+    border-radius: 4px;
+    font-size: 13px;
+    font-weight: bold;
+}
+
+/* 高：赤系 */
+.priority-badge--high {
+    background-color: #FDECEA;
+    color: #C0392B;
+}
+
+/* 中：黄系 */
+.priority-badge--mid {
+    background-color: #FEF9E7;
+    color: #B7770D;
+}
+
+/* 低：緑系 */
+.priority-badge--low {
+    background-color: #EAF4EA;
+    color: #1E8449;
+}
+
+.task-table__button {
+    text-decoration: none;
+    color: #fff;
+    background-color: #353866;
+    padding: 8px 16px;
+    border-radius: 5px;
+    font-size: 16px;
+    white-space: nowrap;
+}
+
+
+.task-table__button:hover {
+    opacity: .8;
+}
+
+.paginate {
+    text-align: center;
+    margin-top: 32px;
+}
+
+.paginate-nav {
+    display: inline-block;
+}
+
+.paginate-inner {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+}
+
+.paginate-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 36px;
+    height: 36px;
+    padding: 0 10px;
+    border: 1px solid #d0d0d0;
+    border-radius: 6px;
+    color: #353866;
+    text-decoration: none;
+    font-size: 14px;
+    background: #fff;
+    transition: background 0.15s, border-color 0.15s;
+}
+
+.paginate-btn:hover {
+    background: #f0f0f5;
+    border-color: #353866;
+}
+
+.paginate-btn--active {
+    background: #353866;
+    color: #fff;
+    border-color: #353866;
+    cursor: default;
+}
+
+.paginate-btn--disabled {
+    color: #bbb;
+    border-color: #e8e8e8;
+    background: #fafafa;
+    cursor: default;
+}
+
+.paginate-btn--dots {
+    border: none;
+    background: none;
+    color: #aaa;
+    cursor: default;
+    min-width: 24px;
+}
+

@@ -42,4 +42,20 @@ class Task extends Model
             default => '高'
         };
     }
+
+    public function scopeCategorySearch($query, $category_id)
+    {
+        if (!empty($category_id)) {
+            $query->where('category_id', $category_id);
+        }
+        return $query;
+    }
+
+    public function scopeKeywordSearch($query, $keyword)
+    {
+        if (!empty($keyword)) {
+            $query->where('title', 'like', '%' . $keyword . '%');
+        }
+        return $query;
+    }
 }

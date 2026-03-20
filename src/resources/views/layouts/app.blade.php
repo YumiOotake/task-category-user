@@ -7,7 +7,10 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>todos</title>
     <link rel="stylesheet" href="{{ asset('css/sanitize.css') }}">
-    <link rel="stylesheet" href="{{ asset('css/app.common.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/common.css') }}">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@100..900&display=swap" rel="stylesheet">
     @yield('css')
 </head>
 
@@ -39,16 +42,13 @@
         </div>
     </header>
     <main>
-        @if (session('success'))
-            <div class="category__alert--success">
-                {{ session('success') }}
-            </div>
-        @endif
-        @if (session('error'))
-            <div class="category__alert--danger">
-                {{ session('error') }}
-            </div>
-        @endif
+        <div class="task__alert">
+            @if (session('success'))
+                <div class="task__alert--success">
+                    {{ session('success') }}
+                </div>
+            @endif
+        </div>
         @yield('content')
     </main>
 </body>

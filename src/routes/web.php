@@ -24,5 +24,7 @@ Route::get('/', function () {
 Route::middleware('auth')->group(function () {
 
     Route::resource('categories', CategoryController::class);
+    Route::get('/tasks/search', [TaskController::class, 'search'])->name('tasks.search');//順番！
+    Route::get('/tasks.sort', [TaskController::class, 'sort'])->name('tasks.sort');
     Route::resource('tasks', TaskController::class);
 });

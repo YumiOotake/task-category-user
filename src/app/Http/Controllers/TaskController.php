@@ -15,16 +15,18 @@ class TaskController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Task $task)
     {
         // $tasks = Task::with('category')->get();
         $tasks = auth()->user()->tasks()
             ->with('category')
             ->orderBy('priority', 'desc')
             ->orderBy('created_at', 'desc')
-            ->get();
+            ->paginate(10);
 
-        return view('tasks.index', compact('tasks'));
+        $categories = Category::all();
+
+        return view('tasks.index', compact('tasks', 'categories'));
     }
 
     /**
@@ -112,4 +114,39 @@ class TaskController extends Controller
 
         return redirect()->route('tasks.index')->with('success', 'タスクを削除しました');
     }
+
+    public function search(Request $request)
+    {
+        $tasks = auth()->user()->tasks()
+            ->with('category')
+            ->categorySearch($request->category_id)
+            ->keywordSearch($request->keyword)
+            ->paginate(10);
+
+        $categories = Category::all();
+
+        return view('tasks.index', compact('tasks', 'categories'));
+    }
+
+    public function sort(Request $request)
+    {
+        $query = auth()->user()->tasks()->with('category');
+
+        if ($request->sort === 'priority_desc') {
+            $query->orderBy('priority', 'desc');
+        } elseif ($request->sort === 'priority_asc') {
+            $query->orderBy('priority', 'asc');
+        } elseif ($request->sort === 'created_desc') {
+            $query->orderBy('created_at', 'desc');
+        } elseif ($request->sort === 'created_asc') {
+            $query->orderBy('created_at', 'asc');
+        }
+
+        $tasks = $query->paginate(10);
+        $categories = Category::all();
+
+        return view('tasks.index', compact('tasks', 'categories'));
+    }
+
+
 }
