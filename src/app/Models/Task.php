@@ -15,6 +15,7 @@ class Task extends Model
         'user_id',
         'category_id',
         'title',
+        'image_path',
         'description',
         'priority',
     ];

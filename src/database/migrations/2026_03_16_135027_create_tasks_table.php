@@ -18,6 +18,7 @@ class CreateTasksTable extends Migration
             $table->foreignId('user_id')->constrained()->cascadeOnDelete();
             $table->foreignId('category_id')->constrained()->cascadeOnDelete();
             $table->string('title');
+            $table->string('image_path')->nullable();
             $table->text('description')->nullable();
             $table->unsignedTinyInteger('priority')->default(2);
             $table->timestamps();

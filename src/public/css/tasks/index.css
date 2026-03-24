@@ -1,23 +1,69 @@
 .task__content {
-    max-width: 1000px;
-    margin: 16px auto 0;
+    max-width: 1100px;
+    margin: 32px auto 0;
+    padding: 0 40px;
 
 }
+
+.task__content-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 16px;
+}
+.login-name {
+    font-size: 13px;
+    color: #666;
+}
+.sort-form {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+}
+.sort-form__item-select select {
+    height: 36px;
+    /* 高さを検索フォームと統一 */
+    font-size: 13px;
+    padding: 0 10px;
+    border: 1px solid #d0d0d0;
+    border-radius: 6px;
+    background: #fff;
+}
+
+.sort-form__button--submit {
+    height: 36px;
+    padding: 0 16px;
+    font-size: 13px;
+    color: #fff;
+    background: #353866;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+}
+
+.sort-form__button--submit:hover {
+    opacity: .8;
+}
+
 .search-form__content {
     display: flex;
-    justify-content: right;
+    justify-content: flex-end;
     align-items: center;
-    gap: 16px;
+    gap: 8px;
+    margin-bottom: 24px;
 }
+
 .search-form__item,
 .search-form__button {
     height: 40px;
 }
+
 .search-form__item-input {
     height: 100%;
     font-size: 16px;
     padding: 8px;
 }
+
 .search-form__button--submit {
     font-size: 16px;
     padding: 8px;
@@ -27,9 +73,11 @@
     border-radius: 8px;
     cursor: pointer;
 }
+
 .search-form__button--submit:hover {
     opacity: .8;
 }
+
 .login-name {
     font-size: 16px;
 }
@@ -97,7 +145,8 @@
 .task-table__item:nth-child(3) {
     width: 20%;
 }
-/* 優先度バッジ共通 */
+
+/* 共通 */
 .priority-badge {
     display: inline-block;
     padding: 3px 10px;
@@ -106,19 +155,17 @@
     font-weight: bold;
 }
 
-/* 高：赤系 */
 .priority-badge--high {
     background-color: #FDECEA;
     color: #C0392B;
 }
 
-/* 中：黄系 */
+
 .priority-badge--mid {
     background-color: #FEF9E7;
     color: #B7770D;
 }
 
-/* 低：緑系 */
 .priority-badge--low {
     background-color: #EAF4EA;
     color: #1E8449;
@@ -196,4 +243,3 @@
     cursor: default;
     min-width: 24px;
 }
-

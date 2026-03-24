@@ -6,6 +6,7 @@ use App\Http\Requests\TaskRequest;
 use App\Models\Category;
 use Illuminate\Http\Request;
 use App\Models\Task;
+use Illuminate\Support\Facades\Storage;
 
 
 class TaskController extends Controller
@@ -42,17 +43,27 @@ class TaskController extends Controller
     }
 
     /**
-     * Store a newly created resource in storage.
+     * Store a newly created resource in storage.　ここ本番ではいちいち消すの？
      *
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
     public function store(TaskRequest $request)
     {
+        // dd($request->hasFile('image_path'), $request->file('image_path'));
         $validated = $request->validated();
         $validated['user_id'] = auth()->id();
 
+        // dd($request->all(), $request->file('image_path'));
+        if ($request->hasFile('image')) {
+            $validated['image_path'] = $request->file('image')->store('images', 'public');
+            // dd($validated['image_path']);
+        } else {
+            $validated['image_path'] = null;
+        }
+
         // Task::create($request->validated());
+        // dd($validated);
         Task::create($validated);
         return redirect()->route('tasks.index')->with('success', 'タスクを追加しました');
     }
@@ -95,8 +106,19 @@ class TaskController extends Controller
     public function update(TaskRequest $request, Task $task)
     {
         $this->authorize('update', $task);
+        $validated = $request->validated();
 
-        $task->update($request->validated());
+        if ($request->hasFile('image')) {
+            if ($task->image_path) {
+                Storage::disk('public')->delete($task->image_path);
+            }
+            $validated['image_path'] = $request->file('image')->store('images', 'public');
+            // dd($validated['image_path']);
+        } else {
+            $validated['image_path'] = $task->image_path;
+        }
+
+        $task->update($validated);
         return redirect()->route('tasks.index')->with('success', 'タスクを更新しました');
     }
 
@@ -110,6 +132,9 @@ class TaskController extends Controller
     {
         $this->authorize('delete', $task);
 
+        if ($task->image_path) {
+            Storage::disk('public')->delete($task->image_path);
+        }
         $task->delete();
 
         return redirect()->route('tasks.index')->with('success', 'タスクを削除しました');

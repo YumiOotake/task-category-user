@@ -26,7 +26,7 @@
                 </a>
             </div>
         </div>
-        <form action="{{ route('tasks.store') }}" method="post" class="add-form">
+        <form action="{{ route('tasks.store') }}" method="post" class="add-form" enctype="multipart/form-data">
             @csrf
             <div class="add-form__content">
                 <div class="add-form__item">
@@ -53,6 +53,10 @@
                 <div class="add-form__item">
                     <label for="description" class="add-form__item-label">説明</label>
                     <textarea name="description" id="description" rows="5" class="add-form__textarea">{{ old('description') }}</textarea>
+                </div>
+                <div class="add-form__item">
+                    <label for="image" class="add-form__item-label">画像</label>
+                    <input type="file" name="image" id="image">
                 </div>
             </div>
             <div class="add-form__button">

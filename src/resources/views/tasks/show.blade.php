@@ -3,12 +3,13 @@
     <link rel="stylesheet" href="{{ asset('css/tasks/show.css') }}">
 @endsection
 @section('content')
+    <div class="task__content">
+
     <div class="login-name">
         @auth
             <h2>{{ auth()->user()->name }}さん ログイン中</h2>
         @endauth
     </div>
-    <div class="task__content">
         <div class="task__section">
             <div class="section__title">
                 <h1>Task詳細</h1>
@@ -20,6 +21,13 @@
             </div>
         </div>
         <div class="task-detail">
+            <div class="task-detail__item">
+                @if ($task->image_path)
+                    <img src="{{ asset('storage/' . $task->image_path) }}" alt="task image">
+                @else
+                    <img src="{{ asset('images/no-image.png') }}" alt="no image">
+                @endif
+            </div>
             <div class="task-detail__item">
                 <span class="task-detail__title">タイトル</span>
                 <p class="task-detail__text">{{ $task->title }}</p>
@@ -44,7 +52,6 @@
                 <p class="task-detail__text">{{ $task->created_at->format('Y年m月d日') }}</p>
             </div>
         </div>
-
         <div class="task-detail__button">
             @can('update', $task)
                 <a href="{{ route('tasks.edit', $task) }}" class="task-detail__button--edit">

@@ -90,7 +90,6 @@
                                     {{ $task->priority_label }}
                                 </span>
                             </td>
-
                             <td class="task-table__item">
                                 <div class="task-table__detail">
                                     <a href="{{ route('tasks.show', $task) }}" class="task-table__button">detail</a>

@@ -26,10 +26,21 @@
                 </a>
             </div>
         </div>
-        <form action="{{ route('tasks.update', $task) }}" method="post" class="edit-form">
+        <form action="{{ route('tasks.update', $task) }}" method="post" class="edit-form" enctype="multipart/form-data">
             @csrf
             @method('PATCH')
             <div class="edit-form__content">
+                <div class="edit-form__item">
+                    <div class="task-detail__item">
+                        @if ($task->image_path)
+                            <img src="{{ asset('storage/' . $task->image_path) }}" alt="task image">
+                        @else
+                            <img src="{{ asset('images/no-image.png') }}" alt="no image">
+                        @endif
+                    </div>
+                    <label for="image" class="edit-form__item-label">画像</label>
+                    <input type="file" name="image" id="image">
+                </div>
                 <div class="edit-form__item">
                     <label for="title" class="edit-form__item-label">タイトル</label>
                     <input type="text" name="title" id="title" value="{{ old('title', $task->title) }}">

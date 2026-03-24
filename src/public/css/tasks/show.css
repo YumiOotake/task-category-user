@@ -1,0 +1,122 @@
+.task__content {
+    max-width: 800px;
+    margin: 32px auto;
+    padding: 0 40px;
+}
+
+.task__section {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 24px;
+}
+
+.task__section h1 {
+    font-size: 22px;
+    font-weight: 500;
+    color: #1a1a2e;
+}
+
+.section__button-back {
+    font-size: 13px;
+    color: #353866;
+    text-decoration: none;
+    padding: 7px 14px;
+    border: 1px solid #d0d0d0;
+    border-radius: 6px;
+    background: #fff;
+    transition: background 0.15s;
+}
+
+.section__button-back:hover {
+    background: #f0f0f5;
+}
+
+/* カード全体 */
+.task-detail {
+    background: #fff;
+    border: 0.5px solid #e0e0e0;
+    border-radius: 12px;
+    overflow: hidden;
+}
+
+/* 画像 */
+.task-detail__item img {
+    width: 100%;
+    height: 220px;
+    object-fit: contain;
+    display: block;
+}
+
+/* 各行 */
+.task-detail__item {
+    display: grid;
+    grid-template-columns: 120px 1fr;
+    padding: 14px 24px;
+    border-bottom: 0.5px solid #f0f0f0;
+}
+
+.task-detail__item:last-child {
+    border-bottom: none;
+}
+
+/* 画像行だけgridを無効 */
+.task-detail__item:has(img) {
+    display: block;
+    padding: 0;
+}
+
+.task-detail__title {
+    font-size: 12px;
+    font-weight: 500;
+    color: #888;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    padding-top: 2px;
+}
+
+.task-detail__text {
+    font-size: 14px;
+    color: #1a1a2e;
+    line-height: 1.6;
+}
+
+/* ボタンエリア */
+.task-detail__button {
+    display: flex;
+    gap: 10px;
+    justify-content: flex-end;
+    padding: 16px 24px;
+    border-top: 0.5px solid #f0f0f0;
+    background: #fff;
+}
+
+.task-detail__button--edit {
+    font-size: 13px;
+    color: #353866;
+    text-decoration: none;
+    padding: 8px 20px;
+    border: 1px solid #353866;
+    border-radius: 6px;
+    background: #fff;
+    transition: background 0.15s;
+}
+
+.task-detail__button--edit:hover {
+    background: #f0f0f5;
+}
+
+.task-detail__button--delete {
+    font-size: 13px;
+    color: #fff;
+    padding: 8px 20px;
+    border: none;
+    border-radius: 6px;
+    background: #C0392B;
+    cursor: pointer;
+    transition: opacity 0.15s;
+}
+
+.task-detail__button--delete:hover {
+    opacity: .85;
+}
