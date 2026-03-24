@@ -6,6 +6,7 @@ use App\Http\Requests\TaskRequest;
 use App\Models\Category;
 use Illuminate\Http\Request;
 use App\Models\Task;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Storage;
 
 
@@ -54,17 +55,37 @@ class TaskController extends Controller
         $validated = $request->validated();
         $validated['user_id'] = auth()->id();
 
+
         // dd($request->all(), $request->file('image_path'));
         if ($request->hasFile('image')) {
-            $validated['image_path'] = $request->file('image')->store('images', 'public');
-            // dd($validated['image_path']);
+            try {
+                $validated['image_path'] = $request->file('image')->store('images', 'public');
+                // dd($validated['image_path']);
+                Log::error('画像保存成功', [
+                    'user_id' => auth()->id(),
+                    'path' => $validated['image_path'],
+                ]);
+            } catch (\Exception $e) {
+                Log::error('画像保存失敗', [
+                    'user_id' => auth()->id(),
+                    'error' => $e->getMessage(),
+                ]);
+                return back()->withErrors(['image' => '画像の保存に失敗しました']);
+            }
         } else {
             $validated['image_path'] = null;
         }
 
         // Task::create($request->validated());
         // dd($validated);
-        Task::create($validated);
+        $task = Task::create($validated);
+
+        Log::info('タスク作成', [
+            'user_id' => auth()->id(),
+            'task_id' => $task->id,
+            'title' => $task->title,
+        ]);
+
         return redirect()->route('tasks.index')->with('success', 'タスクを追加しました');
     }
 
@@ -109,16 +130,33 @@ class TaskController extends Controller
         $validated = $request->validated();
 
         if ($request->hasFile('image')) {
-            if ($task->image_path) {
-                Storage::disk('public')->delete($task->image_path);
+            try {
+                if ($task->image_path) {
+                    Storage::disk('public')->delete($task->image_path);
+                }
+                $validated['image_path'] = $request->file('image')->store('images', 'public');
+                // dd($validated['image_path']);
+                Log::error('画像保存成功', [
+                    'user_id' => auth()->id(),
+                    'path' => $validated['image_path'],
+                ]);
+            } catch (\Exception $e) {
+                Log::error('画像保存失敗', [
+                    'user_id' => auth()->id(),
+                    'error' => $e->getMessage(),
+                ]);
+                return back()->withErrors(['image' => '画像の保存に失敗しました']);
             }
-            $validated['image_path'] = $request->file('image')->store('images', 'public');
-            // dd($validated['image_path']);
         } else {
-            $validated['image_path'] = $task->image_path;
+            $validated['image_path'] = null;
         }
 
         $task->update($validated);
+        Log::info('タスク更新', [
+            'user_id' => auth()->id(),
+            'task_id' => $task->id,
+            'title' => $task->title,
+        ]);
         return redirect()->route('tasks.index')->with('success', 'タスクを更新しました');
     }
 
@@ -135,6 +173,12 @@ class TaskController extends Controller
         if ($task->image_path) {
             Storage::disk('public')->delete($task->image_path);
         }
+
+        Log::info('タスク削除', [
+            'user_id' => auth()->id(),
+            'task_id' => $task->id,
+            'title' => $task->title,
+        ]);
         $task->delete();
 
         return redirect()->route('tasks.index')->with('success', 'タスクを削除しました');
@@ -172,6 +216,4 @@ class TaskController extends Controller
 
         return view('tasks.index', compact('tasks', 'categories'));
     }
-
-
 }
